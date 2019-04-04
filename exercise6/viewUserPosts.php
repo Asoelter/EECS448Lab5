@@ -8,7 +8,6 @@ if ($mysqli->connect_errno)
 }
 
 $name = $_POST["selection"];
-echo "\nName : " . $name;
 $query = "SELECT * FROM Posts WHERE author_id = '$name'";
 
 if($result = $mysqli->query($query))

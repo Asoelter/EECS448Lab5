@@ -23,11 +23,12 @@
 					$counter = 0;
 					while($row = $result->fetch_assoc())
 					{
-						echo $row["author_id"] . ": ";
+						$name = $row["author_id"];
+						echo $name . ": ";
+						$id = $row["post_id"];
 						echo $row["content"] . " ";
-						echo "<input type = 'checkbox' name='check_list[]' value = " . $counter . ">";
+						echo "<input type = 'checkbox' name='check_list[]' value = " . $id . ">";
 						echo "<br></br>";
-						++$counter;
 					}
 				}
 			}
@@ -37,6 +38,7 @@
 				echo $mysqli->error;
 			}
 			?>
+			<input type = "submit" value = "Delete">
 		</form>
 	</body>
 </html>

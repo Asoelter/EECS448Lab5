@@ -7,18 +7,21 @@ if ($mysqli->connect_errno)
 	exit();
 }
 
-$name = $_POST["selection"];
-echo "\nName : " . $name;
+$checks = $_POST["check_list"];
 $query = "SELECT * FROM Posts WHERE author_id = '$name'";
 
-if($result = $mysqli->query($query))
+$global_success = true;
+
+foreach($checks as $check)
 {
-	if($result->num_rows > 0)
+	$id = $check.value;
+	$delete_query = "DELETE FROM Posts WHERE post_id = '$id'";
+
+	if($success = $mysqli->query($delete_query))
 	{
-		while($posts = $result->fetch_assoc())
+		if(!$success)
 		{
-			echo"<br></br>";
-			echo $posts["content"];
+			$global_success = false;
 		}
 	}
 	else
@@ -27,9 +30,15 @@ if($result = $mysqli->query($query))
 		echo "No posts by " . $name;
 	}
 }
+
+if($global_success)
+{
+	echo"<br></br>";
+	echo "All entries deleted successfully";
+}
 else
 {
-	echo "error  ";
-	echo $mysqli->error;
+	echo"<br></br>";
+	echo "One or more value was not deleted successfully";
 }
 ?>
