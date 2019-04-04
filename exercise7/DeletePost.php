@@ -15,6 +15,7 @@ $global_success = true;
 foreach($checks as $check)
 {
 	$id = $check.value;
+	$name_query = "SELECT author_id FROM POSTS WHERE post_id = '$id'";
 	$delete_query = "DELETE FROM Posts WHERE post_id = '$id'";
 
 	if($success = $mysqli->query($delete_query))
@@ -22,6 +23,11 @@ foreach($checks as $check)
 		if(!$success)
 		{
 			$global_success = false;
+		}
+
+		if(!$name_success = $mysqli->query($name_query))
+		{
+			$mysqli->("DELETE FROM Users WHERE user_id = $name");
 		}
 	}
 	else
