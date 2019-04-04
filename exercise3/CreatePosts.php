@@ -16,12 +16,14 @@ if($result = $mysqli->query($query))
 	echo "Thank you, come again";
 	if ($result->num_rows > 0) 
 	{
-		$insertion = "INSERT INTO Posts(content, author_id)
-					  VALUES('$text', '$name')";
+		if(!empty($text))
+		{
+			$insertion = "INSERT INTO Posts(content, author_id)
+						  VALUES('$text', '$name')";
+		}
 
 		if($insertion_result = $mysqli->query($insertion))
 		{
-			echo "Inserted";
 			$insertion_result->free();
 		}
 		else
